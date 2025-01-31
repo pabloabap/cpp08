@@ -6,7 +6,7 @@
 /*   By: pabad-ap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 23:11:30 by pabad-ap          #+#    #+#             */
-/*   Updated: 2025/01/31 02:25:19 by pabad-ap         ###   ########.fr       */
+/*   Updated: 2025/01/31 03:26:15 by pabad-ap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ class Span
 		std::deque<int>		_store;
 
 		int			_getRange( void ) const;
+		unsigned int		_getIntsDistance( int a, int b ) const;
 	public:
 		Span( void );
 		Span( unsigned int N );

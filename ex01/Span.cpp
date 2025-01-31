@@ -6,7 +6,7 @@
 /*   By: pabad-ap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 23:11:32 by pabad-ap          #+#    #+#             */
-/*   Updated: 2025/01/31 02:51:46 by pabad-ap         ###   ########.fr       */
+/*   Updated: 2025/01/31 03:35:27 by pabad-ap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ int	Span::_getRange( void ) const
 			minVal = it;
 	}
 	return ( *maxVal - *minVal );
+
+}
+
+unsigned int		Span::_getIntsDistance( int a, int b ) const
+{
+	unsigned int	distance;
+
+	if (( a >= 0 && b >= 0) || (a <= 0 &&  b <= 0 ))
+		distance = std::abs( a - b );
+	else if ( a < 0 )
+		distance = -a + b;
+	else
+		distance = a - b;
+	return ( distance );
+		
 
 }
 
@@ -80,9 +95,9 @@ unsigned int	Span::shortestSpan( void ) const
 		for ( std::deque<int>::const_iterator it = this->_store.begin(); \
 			it != this->_store.end() - 1; it++ )
 		{
-			if ( shortestJump > static_cast<unsigned int>(std::abs( *it - *(it + 1))))
+			if ( shortestJump > this->_getIntsDistance(*it, *(it + 1)))
 			{
-				shortestJump = std::abs( *it - *(it + 1));
+				shortestJump = this->_getIntsDistance(*it, *(it + 1));
 				std::cout << "Nuevo shortest jump - " << *it << " to " \
 					<< *(it + 1) << " = " << shortestJump << std::endl;
 			}
@@ -103,11 +118,13 @@ unsigned int	Span::longestSpan( void ) const
 	{
 		for ( std::deque<int>::const_iterator it = this->_store.begin(); \
 			it != this->_store.end() - 1; it++ )
-		if ( longestJump < static_cast<unsigned int>(std::abs( *it - *(it + 1))) )
 		{
-			longestJump = std::abs( *it - *(it + 1));
-			std::cout << "Nuevo longest jump - " << *it << " to " \
-				<< *(it + 1) << " = " << longestJump << std::endl;
+			if ( longestJump < this->_getIntsDistance(*it, *(it + 1)))
+			{
+				longestJump = this->_getIntsDistance(*it, *(it + 1));
+				std::cout << "Nuevo longest jump - " << *it << " to " \
+					<< *(it + 1) << " = " << longestJump << std::endl;
+			}
 		}
 	}
 	return ( longestJump );		
